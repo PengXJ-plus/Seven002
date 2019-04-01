@@ -1,6 +1,6 @@
-package me.zhengjie;
+package me.admin;
 
-import me.zhengjie.utils.SpringContextHolder;
+import me.admin.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

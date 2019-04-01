@@ -1,6 +1,6 @@
-package me.zhengjie.modules.monitor.config;
+package me.admin.modules.monitor.config;
 
-import me.zhengjie.modules.monitor.domain.LogMessage;
+import me.admin.modules.monitor.domain.LogMessage;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 

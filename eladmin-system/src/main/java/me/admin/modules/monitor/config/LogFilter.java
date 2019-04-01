@@ -1,10 +1,10 @@
-package me.zhengjie.modules.monitor.config;
+package me.admin.modules.monitor.config;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.core.filter.Filter;
 import ch.qos.logback.core.spi.FilterReply;
-import me.zhengjie.modules.monitor.domain.LogMessage;
+import me.admin.modules.monitor.domain.LogMessage;
 import java.text.DateFormat;
 import java.util.Date;
 

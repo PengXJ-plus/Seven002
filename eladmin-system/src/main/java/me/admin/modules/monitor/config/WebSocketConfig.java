@@ -1,7 +1,7 @@
-package me.zhengjie.modules.monitor.config;
+package me.admin.modules.monitor.config;
 
 import lombok.extern.slf4j.Slf4j;
-import me.zhengjie.modules.monitor.domain.LogMessage;
+import me.admin.modules.monitor.domain.LogMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
