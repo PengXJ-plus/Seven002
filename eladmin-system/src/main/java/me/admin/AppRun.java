@@ -1,6 +1,6 @@
 package me.admin;
 
-import me.admin.utils.SpringContextHolder;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +20,8 @@ public class AppRun {
         SpringApplication.run(AppRun.class, args);
     }
 
-    @Bean
+   /* @Bean
     public SpringContextHolder springContextHolder() {
         return new SpringContextHolder();
-    }
+    }*/
 }

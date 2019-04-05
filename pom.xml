@@ -9,16 +9,16 @@
     <packaging>pom</packaging>
     <version>1.5</version>
 
-    <modules>
-        <module>eladmin-common</module>
+   <modules>
+        <!--<module>eladmin-common</module>
         <module>eladmin-logging</module>
         <module>eladmin-system</module>
         <module>eladmin-tools</module>
-        <module>eladmin-generator</module>
+        <module>eladmin-generator</module>-->
+        <module>me_teat</module>
     </modules>
 
     <name>el-admin</name>
-    <url>http://auauz.net</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -78,6 +78,16 @@
             </exclusions>
         </dependency>
         <!--Spring boot end-->
+
+        <dependency>
+        <groupId>org.quartz-scheduler</groupId>
+        <artifactId>quartz</artifactId>
+        <version>2.2.1</version>
+    </dependency>
+        <dependency><!-- 该依赖必加，里面有sping对schedule的支持 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
 
         <!--jedis-->
         <dependency>
@@ -153,7 +163,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.16.20</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--工具包-->
@@ -185,6 +196,10 @@
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
     </dependencies>
 
