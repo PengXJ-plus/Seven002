@@ -8,13 +8,10 @@
     <packaging>pom</packaging>
     <version>1.5</version>
    <modules>
-        <!--<module>eladmin-common</module>
-        <module>eladmin-logging</module>
-        <module>eladmin-system</module>
-        <module>eladmin-tools</module>
-        <module>eladmin-generator</module>-->
        <module>common</module>
        <module>system</module>
+       <module>eladmin-tools</module>
+       <module>eladmin-logging</module>
    </modules>
 
     <name>eladmin</name>
