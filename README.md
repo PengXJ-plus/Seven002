@@ -42,7 +42,7 @@
 		    - service 用户登录与权限的处理
 		    - utils JWT工具
     	- system 系统管理
-- eladmin-logging 系统日志模块
-- eladmin-tools 系统第三方工具模块
-- eladmin-generator 系统代码生成模块
+- logging 系统日志模块
+- tools 系统第三方工具模块
+- generator 系统代码生成模块
 
