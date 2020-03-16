@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <artifactId>exadmin</artifactId>
+        <groupId>ex.admin</groupId>
+        <version>1.5</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>logging</artifactId>
+
+<dependencies>
+    <dependency>
+        <groupId>ex.admin</groupId>
+        <artifactId>common</artifactId>
+        <version>1.5</version>
+        <exclusions>
+            <exclusion>
+                <groupId>mx.admin</groupId>
+                <artifactId>common</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+</dependencies>
+</project>
