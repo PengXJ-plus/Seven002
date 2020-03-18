@@ -1,5 +1,6 @@
 package mx.admin.modules.monitor.service.impl;
 
+import jdk.internal.org.objectweb.asm.Opcodes;
 import lombok.extern.slf4j.Slf4j;
 import mx.admin.modules.monitor.domain.Visits;
 import mx.admin.modules.monitor.repository.VisitsRepository;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -36,14 +38,14 @@ public class VisitsServiceImpl implements VisitsService {
     @Override
     public void save() {
         LocalDate localDate = LocalDate.now();
-        Visits visits = visitsRepository.findByDate(localDate.toString());
-        if(visits == null){
-            visits = new Visits();
-            visits.setWeekDay(StringUtils.getWeekDay());
-            visits.setPvCounts(1L);
-            visits.setIpCounts(1L);
-            visits.setDate(localDate.toString());
-            visitsRepository.save(visits);
+        Optional<Visits> visits = Optional.ofNullable(visitsRepository.findByDate(localDate.toString()));
+        if(!visits.isPresent()){
+            Visits visit = new Visits();
+            visit.setWeekDay(StringUtils.getWeekDay());
+            visit.setPvCounts(1L);
+            visit.setIpCounts(1L);
+            visit.setDate(localDate.toString());
+            visitsRepository.save(visit);
         }
     }
 

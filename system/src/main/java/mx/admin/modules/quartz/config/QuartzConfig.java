@@ -43,7 +43,7 @@ public class QuartzConfig {
 	 * @return
 	 * @throws Exception
 	 */
-	@Bean(name = "Scheduler")
+	@Bean(name = "scheduler")
 	public Scheduler scheduler(QuartzJobFactory quartzJobFactory) throws Exception {
 		SchedulerFactoryBean factoryBean=new SchedulerFactoryBean();
 		factoryBean.setJobFactory(quartzJobFactory);
