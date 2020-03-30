@@ -70,11 +70,11 @@ CREATE TABLE `gen_config`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
+
 -- ----------------------------
 -- Records of gen_config
 -- ----------------------------
-INSERT INTO `gen_config` VALUES (1, 'jie', b'0', 'eladmin-system', 'me.zhengjie.modules.test', 'E:\\workspace\\my-workspace\\eladmin-qt\\src\\views\\system\\test', 'E:\\workspace\\my-workspace\\eladmin-qt\\src\\api');
-
+INSERT INTO `gen_config` VALUES (1, 'jie', b'0', 'exadmin-system', 'mx.admin.modules.test', 'E:\\work', 'E:\\work');
 -- ----------------------------
 -- Table structure for menu
 -- ----------------------------
@@ -388,8 +388,8 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'https://i.loli.net/2019/01/16/5c3ed609e6f99.jpg', '2018-08-23 09:11:56', 'zhengjie@tom.com', 1, '14e1b600b1fd579f47433b88e8d85291', 'admin', '2019-01-17 09:53:21');
-INSERT INTO `user` VALUES (3, 'https://i.loli.net/2018/12/30/5c2871d6aa101.jpg', '2018-12-27 20:05:26', 'test@qq.com', 1, '14e1b600b1fd579f47433b88e8d85291', 'test', NULL);
+INSERT INTO `user` VALUES (1, 'https://i.loli.net/2019/01/16/5c3ed609e6f99.jpg', '2018-08-23 09:11:56', '271501722@qq.com', 1, '14e1b600b1fd579f47433b88e8d85291', 'admin', '2019-01-17 09:53:21');
+INSERT INTO `user` VALUES (3, 'https://i.loli.net/2018/12/30/5c2871d6aa101.jpg', '2018-12-27 20:05:26', 'test@qq.com', 1, 'e10adc3949ba59abbe56e057f20f883e', 'test', NULL);
 
 -- ----------------------------
 -- Table structure for users_roles
