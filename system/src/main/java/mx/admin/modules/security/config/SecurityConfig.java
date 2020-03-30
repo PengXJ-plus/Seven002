@@ -93,6 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers( HttpMethod.POST,"/auth/"+loginPath).permitAll()
                 .antMatchers("/websocket/**").permitAll()
+                .antMatchers("/es/**").permitAll()
                 .antMatchers("/druid/**").anonymous()
 
                 // 支付宝回调

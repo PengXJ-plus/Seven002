@@ -1,5 +1,7 @@
 package mx.admin.modules.system.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import mx.admin.aop.log.Log;
 import mx.admin.exception.BadRequestException;
 import mx.admin.modules.system.domain.Permission;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api")
+@Api("系统权限管理")
 public class PermissionController {
 
     @Autowired
@@ -42,6 +45,7 @@ public class PermissionController {
     }
 
     @Log("查询权限")
+    @ApiOperation("查询权限")
     @GetMapping(value = "/permissions")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_SELECT')")
     public ResponseEntity getPermissions(@RequestParam(required = false) String name){
