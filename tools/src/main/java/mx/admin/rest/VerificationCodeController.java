@@ -24,7 +24,6 @@ public class VerificationCodeController {
     private VerificationCodeService verificationCodeService;
 
     @Autowired
-    @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
     @Autowired

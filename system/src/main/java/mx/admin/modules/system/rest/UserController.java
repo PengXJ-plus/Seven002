@@ -48,7 +48,6 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
     @Autowired

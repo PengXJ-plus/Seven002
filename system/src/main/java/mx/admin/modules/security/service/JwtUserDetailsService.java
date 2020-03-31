@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @author jie
  * @date 2018-11-22
  */
-@Service
+@Service("userDetailsService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class JwtUserDetailsService implements UserDetailsService {
 

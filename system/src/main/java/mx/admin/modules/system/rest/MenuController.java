@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2018-12-03
  */
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api/menus")
 public class MenuController {
 
     @Autowired
@@ -46,7 +46,7 @@ public class MenuController {
      * 构建前端路由所需要的菜单
      * @return
      */
-    @GetMapping(value = "/menus/build")
+    @GetMapping(value = "/build")
     public ResponseEntity buildMenus(){
         UserDetails userDetails = SecurityContextHolder.getUserDetails();
         User user = userService.findByName(userDetails.getUsername());
@@ -59,14 +59,14 @@ public class MenuController {
      * 返回全部的菜单
      * @return
      */
-    @GetMapping(value = "/menus/tree")
+    @GetMapping(value = "/tree")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT','ROLES_SELECT','ROLES_ALL')")
     public ResponseEntity getMenuTree(){
         return new ResponseEntity(menuService.getMenuTree(menuService.findByPid(0L)),HttpStatus.OK);
     }
 
     @Log("查询菜单")
-    @GetMapping(value = "/menus")
+    @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
     public ResponseEntity getMenus(@RequestParam(required = false) String name){
         List<MenuDTO> menuDTOList = menuQueryService.queryAll(name);
@@ -74,9 +74,9 @@ public class MenuController {
     }
 
     @Log("新增菜单")
-    @PostMapping(value = "/menus")
+    @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_CREATE')")
-    public ResponseEntity create(@Validated @RequestBody Menu resources){
+    public ResponseEntity create(@Validated(Menu.Update.class) @RequestBody Menu resources){
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -84,7 +84,7 @@ public class MenuController {
     }
 
     @Log("修改菜单")
-    @PutMapping(value = "/menus")
+    @PutMapping
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_EDIT')")
     public ResponseEntity update(@Validated(Menu.Update.class) @RequestBody Menu resources){
         menuService.update(resources);
@@ -92,7 +92,7 @@ public class MenuController {
     }
 
     @Log("删除菜单")
-    @DeleteMapping(value = "/menus/{id}")
+    @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
         menuService.delete(id);

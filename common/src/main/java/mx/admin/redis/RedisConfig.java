@@ -9,8 +9,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -93,14 +95,14 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setValueSerializer(fastJsonRedisSerializer);
         template.setHashValueSerializer(fastJsonRedisSerializer);
         // 全局开启AutoType，不建议使用
-        // ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
         // 建议使用这种方式，小范围指定白名单
-        ParserConfig.getGlobalInstance().addAccept("mx.admin.domain");
-        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.system.service.dto");
-        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.system.domain");
-        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.quartz.domain");
-        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.monitor.domain");
-        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.security.security");
+//        ParserConfig.getGlobalInstance().addAccept("mx.admin.domain");
+//        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.system.service.dto");
+//        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.system.domain");
+//        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.quartz.domain");
+//        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.monitor.domain");
+//        ParserConfig.getGlobalInstance().addAccept("mx.admin.modules.security.security");
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
@@ -125,6 +127,37 @@ public class RedisConfig extends CachingConfigurerSupport {
                 sb.append(JSON.toJSONString(obj).hashCode());
             }
             return sb.toString();
+        };
+    }
+
+    /**
+     * redis 异常
+     * @return
+     */
+    @Bean
+    @Override
+    public CacheErrorHandler errorHandler(){
+        log.info("初始化 -> [Redis CacheErrorHandler]");
+        return new CacheErrorHandler() {
+            @Override
+            public void handleCacheGetError(RuntimeException exception, Cache cache, Object key) {
+                log.error("Redis occur handleCacheGetError：key -> [{}]", key, exception);
+            }
+
+            @Override
+            public void handleCachePutError(RuntimeException exception, Cache cache, Object key, Object value) {
+                log.error("Redis occur handleCacheGetError：key -> [{}]; value -> [{}]", key,value);
+            }
+
+            @Override
+            public void handleCacheEvictError(RuntimeException exception, Cache cache, Object key) {
+                log.error("Redis occur handleCacheGetError：key -> [{}]", key, exception);
+            }
+
+            @Override
+            public void handleCacheClearError(RuntimeException exception, Cache cache) {
+                log.error("Redis occur handleCacheGetError：key -> ", exception);
+            }
         };
     }
 }
