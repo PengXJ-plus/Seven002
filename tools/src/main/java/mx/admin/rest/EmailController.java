@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 发送邮件
- * @author 郑杰
+ * @author jie
  * @date 2018/09/28 6:55:53
  */
 @Slf4j
