@@ -36,15 +36,15 @@ public class QiNiuQueryService {
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(QiniuContent qiniuContent, Pageable pageable){
-        return PageUtil.toPage(qiniuContentRepository.findAll(new Spec(qiniuContent),pageable));
+    public Object queryAll(QiniuContent qiniuContent, Pageable pageable) {
+        return PageUtil.toPage(qiniuContentRepository.findAll(new Spec(qiniuContent), pageable));
     }
 
     class Spec implements Specification<QiniuContent> {
 
         private QiniuContent qiniuContent;
 
-        public Spec(QiniuContent qiniuContent){
+        public Spec(QiniuContent qiniuContent) {
             this.qiniuContent = qiniuContent;
         }
 
@@ -53,11 +53,11 @@ public class QiNiuQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-            if(!ObjectUtils.isEmpty(qiniuContent.getKey())){
+            if (!ObjectUtils.isEmpty(qiniuContent.getKey())) {
                 /**
                  * 模糊
                  */
-                list.add(cb.like(root.get("key").as(String.class),"%"+qiniuContent.getKey()+"%"));
+                list.add(cb.like(root.get("key").as(String.class), "%" + qiniuContent.getKey() + "%"));
             }
 
             Predicate[] p = new Predicate[list.size()];

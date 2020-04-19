@@ -18,7 +18,7 @@ import java.util.Date;
  * @date 2020/3/30 14:13
  **/
 @Data
-@Document(indexName = "ess", type = "search",shards = 1,replicas = 0)
+@Document(indexName = "ess", type = "search", shards = 1, replicas = 0)
 public class EsLog implements Serializable {
     private static final long serialVersionUID = -1L;
 
@@ -28,13 +28,13 @@ public class EsLog implements Serializable {
     private Date createTime;
 
     private String description;
-    @Field(analyzer = "ik_max_word",type = FieldType.Text)
+    @Field(analyzer = "ik_max_word", type = FieldType.Text)
     private String exceptionDetail;
     @Field(type = FieldType.Keyword)
     private String logType;
 
     private String method;
-    @Field(analyzer = "ik_max_word",type = FieldType.Text)
+    @Field(analyzer = "ik_max_word", type = FieldType.Text)
     private String params;
     @Field(type = FieldType.Keyword)
     private String requestIp;

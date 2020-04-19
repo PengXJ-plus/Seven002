@@ -37,7 +37,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(ProceedingJoinPoint joinPoint, Log log){
+    public void save(ProceedingJoinPoint joinPoint, Log log) {
 
         // 获取request
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
@@ -51,17 +51,17 @@ public class LogServiceImpl implements LogService {
         }
 
         // 方法路径
-        String methodName = joinPoint.getTarget().getClass().getName()+"."+signature.getName()+"()";
+        String methodName = joinPoint.getTarget().getClass().getName() + "." + signature.getName() + "()";
 
         String params = "{";
         //参数值
         Object[] argValues = joinPoint.getArgs();
         //参数名称
-        String[] argNames = ((MethodSignature)joinPoint.getSignature()).getParameterNames();
+        String[] argNames = ((MethodSignature) joinPoint.getSignature()).getParameterNames();
         // 用户名
         String username = "";
 
-        if(argValues != null){
+        if (argValues != null) {
             for (int i = 0; i < argValues.length; i++) {
                 params += " " + argNames[i] + ": " + argValues[i];
             }
@@ -70,14 +70,14 @@ public class LogServiceImpl implements LogService {
         // 获取IP地址
         log.setRequestIp(StringUtils.getIP(request));
 
-        if(!LOGINPATH.equals(signature.getName())){
+        if (!LOGINPATH.equals(signature.getName())) {
             UserDetails userDetails = SecurityContextHolder.getUserDetails();
             username = userDetails.getUsername();
         } else {
             try {
                 JSONObject jsonObject = new JSONObject(argValues[0]);
                 username = jsonObject.get("username").toString();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

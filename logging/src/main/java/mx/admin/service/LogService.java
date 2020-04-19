@@ -12,6 +12,7 @@ public interface LogService {
 
     /**
      * 新增日志
+     *
      * @param joinPoint
      * @param log
      */

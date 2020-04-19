@@ -10,5 +10,5 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * @version 2.0
  * @date 2020/3/30 14:52
  **/
-public interface EsLogElasticsearchRepository extends ElasticsearchRepository<EsLog,Long> {
+public interface EsLogElasticsearchRepository extends ElasticsearchRepository<EsLog, Long> {
 }

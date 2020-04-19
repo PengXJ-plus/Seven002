@@ -36,15 +36,15 @@ public class PictureQueryService {
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(Picture picture, Pageable pageable){
-        return PageUtil.toPage(pictureRepository.findAll(new Spec(picture),pageable));
+    public Object queryAll(Picture picture, Pageable pageable) {
+        return PageUtil.toPage(pictureRepository.findAll(new Spec(picture), pageable));
     }
 
     class Spec implements Specification<Picture> {
 
         private Picture picture;
 
-        public Spec(Picture picture){
+        public Spec(Picture picture) {
             this.picture = picture;
         }
 
@@ -53,11 +53,11 @@ public class PictureQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-            if(!ObjectUtils.isEmpty(picture.getFilename())){
+            if (!ObjectUtils.isEmpty(picture.getFilename())) {
                 /**
                  * 模糊
                  */
-                list.add(cb.like(root.get("filename").as(String.class),"%"+picture.getFilename()+"%"));
+                list.add(cb.like(root.get("filename").as(String.class), "%" + picture.getFilename() + "%"));
             }
 
             Predicate[] p = new Predicate[list.size()];

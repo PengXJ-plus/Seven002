@@ -24,15 +24,15 @@ public class LogController {
 
     @GetMapping(value = "/logs")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity getLogs(Log log, Pageable pageable){
+    public ResponseEntity getLogs(Log log, Pageable pageable) {
         log.setLogType("INFO");
-        return new ResponseEntity(logQueryService.queryAll(log,pageable), HttpStatus.OK);
+        return new ResponseEntity(logQueryService.queryAll(log, pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/logs/error")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity getErrorLogs(Log log, Pageable pageable){
+    public ResponseEntity getErrorLogs(Log log, Pageable pageable) {
         log.setLogType("ERROR");
-        return new ResponseEntity(logQueryService.queryAll(log,pageable), HttpStatus.OK);
+        return new ResponseEntity(logQueryService.queryAll(log, pageable), HttpStatus.OK);
     }
 }

@@ -37,15 +37,15 @@ public class EsSearchServiceImpl implements EsSearchService {
     public int importAll() {
         List<Log> all = logRepository.findAll();
         ArrayList<EsLog> esLogs = Lists.newArrayList();
-        all.forEach(x-> {
+        all.forEach(x -> {
             EsLog esLog = new EsLog();
-            BeanUtils.copyProperties(x,esLog);
+            BeanUtils.copyProperties(x, esLog);
             esLogs.add(esLog);
         });
         Iterable<EsLog> esLogs1 = esLogElasticsearchRepository.saveAll(esLogs);
         Iterator<EsLog> iterator = esLogs1.iterator();
-        int result = 0 ;
-        while (iterator.hasNext()){
+        int result = 0;
+        while (iterator.hasNext()) {
             result++;
             iterator.next();
         }

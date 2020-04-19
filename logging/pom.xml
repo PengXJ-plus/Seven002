@@ -11,17 +11,17 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>logging</artifactId>
 
-<dependencies>
-    <dependency>
-        <groupId>ex.admin</groupId>
-        <artifactId>common</artifactId>
-        <version>1.5</version>
-        <exclusions>
-            <exclusion>
-                <groupId>mx.admin</groupId>
-                <artifactId>common</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>ex.admin</groupId>
+            <artifactId>common</artifactId>
+            <version>1.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>mx.admin</groupId>
+                    <artifactId>common</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 </project>

@@ -15,6 +15,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificat
 
     /**
      * findByName
+     *
      * @param name
      * @return
      */
@@ -22,6 +23,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificat
 
     /**
      * findByPid
+     *
      * @param pid
      * @return
      */

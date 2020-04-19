@@ -29,15 +29,15 @@ public class LogQueryService {
     @Autowired
     private LogRepository logRepository;
 
-    public Page queryAll(Log log, Pageable pageable){
-        return logRepository.findAll(new Spec(log),pageable);
+    public Page queryAll(Log log, Pageable pageable) {
+        return logRepository.findAll(new Spec(log), pageable);
     }
 
     class Spec implements Specification<Log> {
 
         private Log log;
 
-        public Spec(Log log){
+        public Spec(Log log) {
             this.log = log;
         }
 
@@ -47,8 +47,8 @@ public class LogQueryService {
             List<Predicate> list = new ArrayList<Predicate>();
 
 
-            if(!ObjectUtils.isEmpty(log.getUsername())){
-                list.add(cb.like(root.get("username").as(String.class),"%"+log.getUsername()+"%"));
+            if (!ObjectUtils.isEmpty(log.getUsername())) {
+                list.add(cb.like(root.get("username").as(String.class), "%" + log.getUsername() + "%"));
             }
 
             if (!ObjectUtils.isEmpty(log.getLogType())) {

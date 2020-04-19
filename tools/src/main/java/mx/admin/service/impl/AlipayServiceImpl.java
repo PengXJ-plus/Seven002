@@ -34,13 +34,13 @@ public class AlipayServiceImpl implements AlipayService {
     @Override
     public String toPayAsPC(AlipayConfig alipay, TradeVo trade) throws Exception {
 
-        if(alipay.getId() == null){
+        if (alipay.getId() == null) {
             throw new BadRequestException("请先添加相应配置，再操作");
         }
         AlipayClient alipayClient = new DefaultAlipayClient(alipay.getGatewayUrl(), alipay.getAppID(), alipay.getPrivateKey(), alipay.getFormat(), alipay.getCharset(), alipay.getPublicKey(), alipay.getSignType());
 
         double money = Double.parseDouble(trade.getTotalAmount());
-        if(money <= 0 || money>=5000){
+        if (money <= 0 || money >= 5000) {
             throw new BadRequestException("测试金额过大");
         }
 
@@ -58,14 +58,14 @@ public class AlipayServiceImpl implements AlipayService {
          *  填充订单参数
          */
         request.setBizContent("{" +
-                "    \"out_trade_no\":\""+trade.getOutTradeNo()+"\"," +
+                "    \"out_trade_no\":\"" + trade.getOutTradeNo() + "\"," +
                 "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\"," +
-                "    \"total_amount\":"+trade.getTotalAmount()+"," +
-                "    \"subject\":\""+trade.getSubject()+"\"," +
-                "    \"body\":\""+trade.getBody()+"\"," +
+                "    \"total_amount\":" + trade.getTotalAmount() + "," +
+                "    \"subject\":\"" + trade.getSubject() + "\"," +
+                "    \"body\":\"" + trade.getBody() + "\"," +
                 "    \"extend_params\":{" +
-                "    \"sys_service_provider_id\":\""+alipay.getSysServiceProviderId()+"\"" +
-                "    }"+
+                "    \"sys_service_provider_id\":\"" + alipay.getSysServiceProviderId() + "\"" +
+                "    }" +
                 "  }");//填充业务参数
         /**
          * 调用SDK生成表单
@@ -77,13 +77,13 @@ public class AlipayServiceImpl implements AlipayService {
 
     @Override
     public String toPayAsWeb(AlipayConfig alipay, TradeVo trade) throws Exception {
-        if(alipay.getId() == null){
+        if (alipay.getId() == null) {
             throw new BadRequestException("请先添加相应配置，再操作");
         }
         AlipayClient alipayClient = new DefaultAlipayClient(alipay.getGatewayUrl(), alipay.getAppID(), alipay.getPrivateKey(), alipay.getFormat(), alipay.getCharset(), alipay.getPublicKey(), alipay.getSignType());
 
         double money = Double.parseDouble(trade.getTotalAmount());
-        if(money <= 0 || money >= 5000){
+        if (money <= 0 || money >= 5000) {
             throw new BadRequestException("测试金额过大");
         }
 
@@ -101,14 +101,14 @@ public class AlipayServiceImpl implements AlipayService {
          *  填充订单参数
          */
         request.setBizContent("{" +
-                "    \"out_trade_no\":\""+trade.getOutTradeNo()+"\"," +
+                "    \"out_trade_no\":\"" + trade.getOutTradeNo() + "\"," +
                 "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\"," +
-                "    \"total_amount\":"+trade.getTotalAmount()+"," +
-                "    \"subject\":\""+trade.getSubject()+"\"," +
-                "    \"body\":\""+trade.getBody()+"\"," +
+                "    \"total_amount\":" + trade.getTotalAmount() + "," +
+                "    \"subject\":\"" + trade.getSubject() + "\"," +
+                "    \"body\":\"" + trade.getBody() + "\"," +
                 "    \"extend_params\":{" +
-                "    \"sys_service_provider_id\":\""+alipay.getSysServiceProviderId()+"\"" +
-                "    }"+
+                "    \"sys_service_provider_id\":\"" + alipay.getSysServiceProviderId() + "\"" +
+                "    }" +
                 "  }");//填充业务参数
         /**
          * 调用SDK生成表单
@@ -120,7 +120,7 @@ public class AlipayServiceImpl implements AlipayService {
     @Override
     public AlipayConfig find() {
         Optional<AlipayConfig> alipayConfig = alipayRepository.findById(1L);
-        if (alipayConfig.isPresent()){
+        if (alipayConfig.isPresent()) {
             return alipayConfig.get();
         } else {
             return new AlipayConfig();

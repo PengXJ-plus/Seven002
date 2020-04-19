@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 public class Swagger2Doc {
     /**
      * 生成AsciiDocs格式文档
+     *
      * @throws Exception
      */
     @Test
@@ -44,6 +45,7 @@ public class Swagger2Doc {
 
     /**
      * 生成Markdown格式文档,并汇总成一个文件
+     *
      * @throws Exception
      */
     @Test

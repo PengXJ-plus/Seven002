@@ -1,11 +1,13 @@
 package mx.admin.modules.monitor.config;
 
 import mx.admin.modules.monitor.domain.LogMessage;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 创建一个阻塞队列，作为日志系统输出的日志的一个临时载体
+ *
  * @author jie
  * @date 2018-12-24
  */
@@ -31,6 +33,7 @@ public class LoggerQueue {
 
     /**
      * 消息入队
+     *
      * @param log
      * @return
      */

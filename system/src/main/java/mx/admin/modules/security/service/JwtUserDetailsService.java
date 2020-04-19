@@ -41,10 +41,10 @@ public class JwtUserDetailsService implements UserDetailsService {
     private PermissionRepository permissionRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username){
+    public UserDetails loadUserByUsername(String username) {
 
         User user = null;
-        if(ValidationUtil.isEmail(username)){
+        if (ValidationUtil.isEmail(username)) {
             user = userRepository.findByEmail(username);
         } else {
             user = userRepository.findByUsername(username);
@@ -64,14 +64,14 @@ public class JwtUserDetailsService implements UserDetailsService {
                 user.getPassword(),
                 user.getAvatar(),
                 user.getEmail(),
-                mapToGrantedAuthorities(roleRepository.findByUsers_Id(user.getId()),permissionRepository),
+                mapToGrantedAuthorities(roleRepository.findByUsers_Id(user.getId()), permissionRepository),
                 user.getEnabled(),
                 user.getCreateTime(),
                 user.getLastPasswordResetTime()
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(Set<Role> roles,PermissionRepository permissionRepository) {
+    private static List<GrantedAuthority> mapToGrantedAuthorities(Set<Role> roles, PermissionRepository permissionRepository) {
 
         Set<Permission> permissions = new HashSet<>();
         for (Role role : roles) {

@@ -6,6 +6,7 @@ import mx.admin.modules.system.service.dto.MenuDTO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +20,7 @@ public interface MenuService {
 
     /**
      * get
+     *
      * @param id
      * @return
      */
@@ -27,6 +29,7 @@ public interface MenuService {
 
     /**
      * create
+     *
      * @param resources
      * @return
      */
@@ -35,6 +38,7 @@ public interface MenuService {
 
     /**
      * update
+     *
      * @param resources
      */
     @CacheEvict(allEntries = true)
@@ -42,6 +46,7 @@ public interface MenuService {
 
     /**
      * delete
+     *
      * @param id
      */
     @CacheEvict(allEntries = true)
@@ -49,6 +54,7 @@ public interface MenuService {
 
     /**
      * permission tree
+     *
      * @return
      */
     @Cacheable(key = "'tree'")
@@ -56,6 +62,7 @@ public interface MenuService {
 
     /**
      * findByPid
+     *
      * @param pid
      * @return
      */
@@ -64,6 +71,7 @@ public interface MenuService {
 
     /**
      * build Tree
+     *
      * @param menuDTOS
      * @return
      */
@@ -71,6 +79,7 @@ public interface MenuService {
 
     /**
      * findByRoles
+     *
      * @param roles
      * @return
      */
@@ -78,6 +87,7 @@ public interface MenuService {
 
     /**
      * buildMenus
+     *
      * @param byRoles
      * @return
      */

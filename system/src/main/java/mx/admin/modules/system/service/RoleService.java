@@ -17,6 +17,7 @@ public interface RoleService {
 
     /**
      * get
+     *
      * @param id
      * @return
      */
@@ -25,6 +26,7 @@ public interface RoleService {
 
     /**
      * create
+     *
      * @param resources
      * @return
      */
@@ -33,6 +35,7 @@ public interface RoleService {
 
     /**
      * update
+     *
      * @param resources
      */
     @CacheEvict(allEntries = true)
@@ -40,6 +43,7 @@ public interface RoleService {
 
     /**
      * delete
+     *
      * @param id
      */
     @CacheEvict(allEntries = true)
@@ -47,6 +51,7 @@ public interface RoleService {
 
     /**
      * role tree
+     *
      * @return
      */
     @Cacheable(key = "'tree'")
@@ -54,6 +59,7 @@ public interface RoleService {
 
     /**
      * findByUsers_Id
+     *
      * @param id
      * @return
      */
@@ -61,6 +67,7 @@ public interface RoleService {
 
     /**
      * updatePermission
+     *
      * @param resources
      * @param roleDTO
      */
@@ -69,6 +76,7 @@ public interface RoleService {
 
     /**
      * updateMenu
+     *
      * @param resources
      * @param roleDTO
      */

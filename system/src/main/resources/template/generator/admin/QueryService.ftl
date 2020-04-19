@@ -23,52 +23,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author jie
- * @date 2018-12-03
- */
+* @author jie
+* @date 2018-12-03
+*/
 @Service
 @CacheConfig(cacheNames = "${changeClassName}")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class ${className}QueryService {
 
-    @Autowired
-    private ${className}Repository ${changeClassName}Repository;
+@Autowired
+private ${className}Repository ${changeClassName}Repository;
 
-    @Autowired
-    private ${className}Mapper ${changeClassName}Mapper;
+@Autowired
+private ${className}Mapper ${changeClassName}Mapper;
 
-    /**
-     * 分页
-     */
-    @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(${className}DTO ${changeClassName}, Pageable pageable){
-        Page<${className}> page = ${changeClassName}Repository.findAll(new Spec(${changeClassName}),pageable);
-        return PageUtil.toPage(page.map(${changeClassName}Mapper::toDto));
-    }
+/**
+* 分页
+*/
+@Cacheable(keyGenerator = "keyGenerator")
+public Object queryAll(${className}DTO ${changeClassName}, Pageable pageable){
+Page<${className}> page = ${changeClassName}Repository.findAll(new Spec(${changeClassName}),pageable);
+return PageUtil.toPage(page.map(${changeClassName}Mapper::toDto));
+}
 
-    /**
-    * 不分页
-    */
-    @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(${className}DTO ${changeClassName}){
-        return ${changeClassName}Mapper.toDto(${changeClassName}Repository.findAll(new Spec(${changeClassName})));
-    }
+/**
+* 不分页
+*/
+@Cacheable(keyGenerator = "keyGenerator")
+public Object queryAll(${className}DTO ${changeClassName}){
+return ${changeClassName}Mapper.toDto(${changeClassName}Repository.findAll(new Spec(${changeClassName})));
+}
 
-    class Spec implements Specification<${className}> {
+class Spec implements Specification<${className}> {
 
-        private ${className}DTO ${changeClassName};
+private ${className}DTO ${changeClassName};
 
-        public Spec(${className}DTO ${changeClassName}){
-            this.${changeClassName} = ${changeClassName};
-        }
+public Spec(${className}DTO ${changeClassName}){
+this.${changeClassName} = ${changeClassName};
+}
 
-        @Override
-        public Predicate toPredicate(Root<${className}> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+@Override
+public Predicate toPredicate(Root<${className}> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 
-            List<Predicate> list = new ArrayList<Predicate>();
+List
+<Predicate> list = new ArrayList
+    <Predicate>();
 
-    <#if queryColumns??>
-        <#list queryColumns as column>
+        <#if queryColumns??>
+            <#list queryColumns as column>
                 if(!ObjectUtils.isEmpty(${changeClassName}.get${column.capitalColumnName}())){
                 <#if column.columnQuery = '1'>
                     /**
@@ -83,10 +85,10 @@ public class ${className}QueryService {
                     list.add(cb.equal(root.get("${column.columnName}").as(${column.columnType}.class),${changeClassName}.get${column.capitalColumnName}()));
                 </#if>
                 }
-        </#list>
-    </#if>
-                Predicate[] p = new Predicate[list.size()];
-                return cb.and(list.toArray(p));
+            </#list>
+        </#if>
+        Predicate[] p = new Predicate[list.size()];
+        return cb.and(list.toArray(p));
         }
-    }
-}
+        }
+        }

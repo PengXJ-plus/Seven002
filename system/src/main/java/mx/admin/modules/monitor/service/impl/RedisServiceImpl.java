@@ -25,26 +25,26 @@ public class RedisServiceImpl implements RedisService {
     JedisPool pool;
 
     @Override
-    public Page findByKey(String key, Pageable pageable){
+    public Page findByKey(String key, Pageable pageable) {
         Jedis jedis = null;
-        try{
+        try {
             jedis = pool.getResource();
             List<RedisVo> redisVos = new ArrayList<>();
 
-            if(!key.equals("*")){
+            if (!key.equals("*")) {
                 key = "*" + key + "*";
             }
             for (String s : jedis.keys(key)) {
-                RedisVo redisVo = new RedisVo(s,jedis.get(s));
+                RedisVo redisVo = new RedisVo(s, jedis.get(s));
                 redisVos.add(redisVo);
             }
             Page<RedisVo> page = new PageImpl<RedisVo>(
-                    PageUtil.toPage(pageable.getPageNumber(),pageable.getPageSize(),redisVos),
+                    PageUtil.toPage(pageable.getPageNumber(), pageable.getPageSize(), redisVos),
                     pageable,
                     redisVos.size());
             return page;
-        }finally{
-            if(null != jedis){
+        } finally {
+            if (null != jedis) {
                 jedis.close(); // 释放资源还给连接池
             }
         }
@@ -54,11 +54,11 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void save(RedisVo redisVo) {
         Jedis jedis = null;
-        try{
+        try {
             jedis = pool.getResource();
-            jedis.set(redisVo.getKey(),redisVo.getValue());
-        }finally{
-            if(null != jedis){
+            jedis.set(redisVo.getKey(), redisVo.getValue());
+        } finally {
+            if (null != jedis) {
                 jedis.close(); // 释放资源还给连接池
             }
         }
@@ -67,11 +67,11 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void delete(String key) {
         Jedis jedis = null;
-        try{
+        try {
             jedis = pool.getResource();
             jedis.del(key);
-        }finally{
-            if(null != jedis){
+        } finally {
+            if (null != jedis) {
                 jedis.close(); // 释放资源还给连接池
             }
         }
@@ -81,11 +81,11 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void flushdb() {
         Jedis jedis = null;
-        try{
+        try {
             jedis = pool.getResource();
             jedis.flushDB();
-        }finally{
-            if(null != jedis){
+        } finally {
+            if (null != jedis) {
                 jedis.close(); // 释放资源还给连接池
             }
         }

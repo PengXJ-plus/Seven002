@@ -22,7 +22,7 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .allowedHeaders("*")
                 .allowedOrigins("*")
-                .allowedMethods("GET","POST","PUT","DELETE");
+                .allowedMethods("GET", "POST", "PUT", "DELETE");
 
     }
 

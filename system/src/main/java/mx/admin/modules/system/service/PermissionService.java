@@ -5,6 +5,7 @@ import mx.admin.modules.system.service.dto.PermissionDTO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public interface PermissionService {
 
     /**
      * get
+     *
      * @param id
      * @return
      */
@@ -24,6 +26,7 @@ public interface PermissionService {
 
     /**
      * create
+     *
      * @param resources
      * @return
      */
@@ -32,6 +35,7 @@ public interface PermissionService {
 
     /**
      * update
+     *
      * @param resources
      */
     @CacheEvict(allEntries = true)
@@ -39,6 +43,7 @@ public interface PermissionService {
 
     /**
      * delete
+     *
      * @param id
      */
     @CacheEvict(allEntries = true)
@@ -46,6 +51,7 @@ public interface PermissionService {
 
     /**
      * permission tree
+     *
      * @return
      */
     @Cacheable(key = "'tree'")
@@ -53,6 +59,7 @@ public interface PermissionService {
 
     /**
      * findByPid
+     *
      * @param pid
      * @return
      */
@@ -61,6 +68,7 @@ public interface PermissionService {
 
     /**
      * build Tree
+     *
      * @param permissionDTOS
      * @return
      */

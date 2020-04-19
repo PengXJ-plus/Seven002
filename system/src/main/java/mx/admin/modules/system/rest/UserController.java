@@ -62,24 +62,24 @@ public class UserController {
     @Log("查询用户")
     @GetMapping(value = "/users")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_SELECT')")
-    public ResponseEntity getUsers(UserDTO userDTO, Pageable pageable){
-        return new ResponseEntity(userQueryService.queryAll(userDTO,pageable),HttpStatus.OK);
+    public ResponseEntity getUsers(UserDTO userDTO, Pageable pageable) {
+        return new ResponseEntity(userQueryService.queryAll(userDTO, pageable), HttpStatus.OK);
     }
 
     @Log("新增用户")
     @PostMapping(value = "/users")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_CREATE')")
-    public ResponseEntity create(@Validated @RequestBody User resources){
+    public ResponseEntity create(@Validated @RequestBody User resources) {
         if (resources.getId() != null) {
-            throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
+            throw new BadRequestException("A new " + ENTITY_NAME + " cannot already have an ID");
         }
-        return new ResponseEntity(userService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(userService.create(resources), HttpStatus.CREATED);
     }
 
     @Log("修改用户")
     @PutMapping(value = "/users")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_EDIT')")
-    public ResponseEntity update(@Validated(User.Update.class) @RequestBody User resources){
+    public ResponseEntity update(@Validated(User.Update.class) @RequestBody User resources) {
         userService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -87,74 +87,78 @@ public class UserController {
     @Log("删除用户")
     @DeleteMapping(value = "/users/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_DELETE')")
-    public ResponseEntity delete(@PathVariable Long id){
+    public ResponseEntity delete(@PathVariable Long id) {
         userService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     /**
      * 验证密码
+     *
      * @param pass
      * @return
      */
     @GetMapping(value = "/users/validPass/{pass}")
-    public ResponseEntity validPass(@PathVariable String pass){
+    public ResponseEntity validPass(@PathVariable String pass) {
         UserDetails userDetails = SecurityContextHolder.getUserDetails();
-        JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(userDetails.getUsername());
+        JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(userDetails.getUsername());
         Map map = new HashMap();
-        map.put("status",200);
-        if(!jwtUser.getPassword().equals(EncryptUtils.encryptPassword(pass))){
-           map.put("status",400);
+        map.put("status", 200);
+        if (!jwtUser.getPassword().equals(EncryptUtils.encryptPassword(pass))) {
+            map.put("status", 400);
         }
-        return new ResponseEntity(map,HttpStatus.OK);
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     /**
      * 修改密码
+     *
      * @param pass
      * @return
      */
     @GetMapping(value = "/users/updatePass/{pass}")
-    public ResponseEntity updatePass(@PathVariable String pass){
+    public ResponseEntity updatePass(@PathVariable String pass) {
         UserDetails userDetails = SecurityContextHolder.getUserDetails();
-        JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(userDetails.getUsername());
-        if(jwtUser.getPassword().equals(EncryptUtils.encryptPassword(pass))){
+        JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(userDetails.getUsername());
+        if (jwtUser.getPassword().equals(EncryptUtils.encryptPassword(pass))) {
             throw new BadRequestException("新密码不能与旧密码相同");
         }
-        userService.updatePass(jwtUser,EncryptUtils.encryptPassword(pass));
+        userService.updatePass(jwtUser, EncryptUtils.encryptPassword(pass));
         return new ResponseEntity(HttpStatus.OK);
     }
 
     /**
      * 修改头像
+     *
      * @param file
      * @return
      */
     @PostMapping(value = "/users/updateAvatar")
-    public ResponseEntity updateAvatar(@RequestParam MultipartFile file){
+    public ResponseEntity updateAvatar(@RequestParam MultipartFile file) {
         UserDetails userDetails = SecurityContextHolder.getUserDetails();
-        JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(userDetails.getUsername());
-        Picture picture = pictureService.upload(file,jwtUser.getUsername());
-        userService.updateAvatar(jwtUser,picture.getUrl());
+        JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(userDetails.getUsername());
+        Picture picture = pictureService.upload(file, jwtUser.getUsername());
+        userService.updateAvatar(jwtUser, picture.getUrl());
         return new ResponseEntity(HttpStatus.OK);
     }
 
     /**
      * 修改邮箱
+     *
      * @param user
      * @param user
      * @return
      */
     @PostMapping(value = "/users/updateEmail/{code}")
-    public ResponseEntity updateEmail(@PathVariable String code,@RequestBody User user){
+    public ResponseEntity updateEmail(@PathVariable String code, @RequestBody User user) {
         UserDetails userDetails = SecurityContextHolder.getUserDetails();
-        JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(userDetails.getUsername());
-        if(!jwtUser.getPassword().equals(EncryptUtils.encryptPassword(user.getPassword()))){
+        JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(userDetails.getUsername());
+        if (!jwtUser.getPassword().equals(EncryptUtils.encryptPassword(user.getPassword()))) {
             throw new BadRequestException("密码错误");
         }
-        VerificationCode verificationCode = new VerificationCode(code, ElAdminConstant.RESET_MAIL,"email",user.getEmail());
+        VerificationCode verificationCode = new VerificationCode(code, ElAdminConstant.RESET_MAIL, "email", user.getEmail());
         verificationCodeService.validated(verificationCode);
-        userService.updateEmail(jwtUser,user.getEmail());
+        userService.updateEmail(jwtUser, user.getEmail());
         return new ResponseEntity(HttpStatus.OK);
     }
 }

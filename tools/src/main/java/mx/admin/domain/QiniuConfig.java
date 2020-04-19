@@ -1,12 +1,14 @@
 package mx.admin.domain;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
  * 七牛云对象存储配置类
+ *
  * @author jie
  * @date 2018-12-31
  */

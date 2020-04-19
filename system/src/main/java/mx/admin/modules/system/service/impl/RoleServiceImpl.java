@@ -31,15 +31,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleDTO findById(long id) {
         Optional<Role> role = roleRepository.findById(id);
-        ValidationUtil.isNull(role,"Role","id",id);
+        ValidationUtil.isNull(role, "Role", "id", id);
         return roleMapper.toDto(role.get());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public RoleDTO create(Role resources) {
-        if(roleRepository.findByName(resources.getName()) != null){
-            throw new EntityExistException(Role.class,"username",resources.getName());
+        if (roleRepository.findByName(resources.getName()) != null) {
+            throw new EntityExistException(Role.class, "username", resources.getName());
         }
         return roleMapper.toDto(roleRepository.save(resources));
     }
@@ -49,14 +49,14 @@ public class RoleServiceImpl implements RoleService {
     public void update(Role resources) {
 
         Optional<Role> optionalRole = roleRepository.findById(resources.getId());
-        ValidationUtil.isNull(optionalRole,"Role","id",resources.getId());
+        ValidationUtil.isNull(optionalRole, "Role", "id", resources.getId());
 
         Role role = optionalRole.get();
 
         Role role1 = roleRepository.findByName(resources.getName());
 
-        if(role1 != null && !role1.getId().equals(role.getId())){
-            throw new EntityExistException(Role.class,"username",resources.getName());
+        if (role1 != null && !role1.getId().equals(role.getId())) {
+            throw new EntityExistException(Role.class, "username", resources.getName());
         }
 
         role.setName(resources.getName());
@@ -92,8 +92,8 @@ public class RoleServiceImpl implements RoleService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (Role role : roleList) {
             Map<String, Object> map = new HashMap<>();
-            map.put("id",role.getId());
-            map.put("label",role.getName());
+            map.put("id", role.getId());
+            map.put("label", role.getName());
             list.add(map);
         }
         return list;

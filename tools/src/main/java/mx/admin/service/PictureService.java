@@ -15,6 +15,7 @@ public interface PictureService {
 
     /**
      * 上传图片
+     *
      * @param file
      * @param username
      * @return
@@ -24,6 +25,7 @@ public interface PictureService {
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -32,6 +34,7 @@ public interface PictureService {
 
     /**
      * 删除图片
+     *
      * @param picture
      */
     @CacheEvict(allEntries = true)

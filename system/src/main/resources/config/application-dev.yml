@@ -52,7 +52,7 @@ spring:
 #jwt
 jwt:
   header: Authorization
-    # 令牌前缀
+  # 令牌前缀
   token-start-with: Bearer
 
   secret: mySecret

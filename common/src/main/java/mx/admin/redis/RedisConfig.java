@@ -58,27 +58,29 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * 配置 redis 连接池
+     *
      * @return
      */
     @Bean
-    public JedisPool redisPoolFactory(){
+    public JedisPool redisPoolFactory() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
         if (StringUtils.isNotBlank(password)) {
             return new JedisPool(jedisPoolConfig, host, port, timeout, password);
         } else {
-            return new JedisPool(jedisPoolConfig, host, port,timeout);
+            return new JedisPool(jedisPoolConfig, host, port, timeout);
         }
     }
 
     /**
-     *  设置 redis 数据默认过期时间，默认1天
-     *  设置@cacheable 序列化方式
+     * 设置 redis 数据默认过期时间，默认1天
+     * 设置@cacheable 序列化方式
+     *
      * @return
      */
     @Bean
-    public RedisCacheConfiguration redisCacheConfiguration(){
+    public RedisCacheConfiguration redisCacheConfiguration() {
         FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
         configuration = configuration.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(fastJsonRedisSerializer)).entryTtl(Duration.ofDays(1));
@@ -113,6 +115,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     /**
      * 自定义缓存key生成策略
      * 使用方法 @Cacheable(keyGenerator="keyGenerator")
+     *
      * @return
      */
     @Bean
@@ -132,11 +135,12 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * redis 异常
+     *
      * @return
      */
     @Bean
     @Override
-    public CacheErrorHandler errorHandler(){
+    public CacheErrorHandler errorHandler() {
         log.info("初始化 -> [Redis CacheErrorHandler]");
         return new CacheErrorHandler() {
             @Override
@@ -146,7 +150,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
             @Override
             public void handleCachePutError(RuntimeException exception, Cache cache, Object key, Object value) {
-                log.error("Redis occur handleCacheGetError：key -> [{}]; value -> [{}]", key,value);
+                log.error("Redis occur handleCacheGetError：key -> [{}]; value -> [{}]", key, value);
             }
 
             @Override

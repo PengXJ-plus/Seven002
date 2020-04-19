@@ -17,14 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/es")
-@Api(value = "Es搜索管理",tags = "EsController")
+@Api(value = "Es搜索管理", tags = "EsController")
 public class EsSearchController {
 
 
     @Autowired
     private EsSearchService esSearchService;
+
     @GetMapping("/importEsAll")
-    public ResponseEntity importEsAll(){
+    public ResponseEntity importEsAll() {
         return new ResponseEntity(esSearchService.importAll(), HttpStatus.OK);
     }
 

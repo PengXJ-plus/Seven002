@@ -34,12 +34,13 @@ public class PictureController {
     @Log("查询图片")
     @PreAuthorize("hasAnyRole('ADMIN','PICTURE_ALL','PICTURE_SELECT')")
     @GetMapping(value = "/pictures")
-    public ResponseEntity getRoles(Picture resources, Pageable pageable){
-        return new ResponseEntity(pictureQueryService.queryAll(resources,pageable),HttpStatus.OK);
+    public ResponseEntity getRoles(Picture resources, Pageable pageable) {
+        return new ResponseEntity(pictureQueryService.queryAll(resources, pageable), HttpStatus.OK);
     }
 
     /**
      * 上传图片
+     *
      * @param file
      * @return
      * @throws Exception
@@ -47,19 +48,20 @@ public class PictureController {
     @Log("上传图片")
     @PreAuthorize("hasAnyRole('ADMIN','PICTURE_ALL','PICTURE_UPLOAD')")
     @PostMapping(value = "/pictures")
-    public ResponseEntity upload(@RequestParam MultipartFile file){
+    public ResponseEntity upload(@RequestParam MultipartFile file) {
         UserDetails userDetails = SecurityContextHolder.getUserDetails();
         String userName = userDetails.getUsername();
-        Picture picture = pictureService.upload(file,userName);
+        Picture picture = pictureService.upload(file, userName);
         Map map = new HashMap();
-        map.put("errno",0);
-        map.put("id",picture.getId());
-        map.put("data",new String[]{picture.getUrl()});
-        return new ResponseEntity(map,HttpStatus.OK);
+        map.put("errno", 0);
+        map.put("id", picture.getId());
+        map.put("data", new String[]{picture.getUrl()});
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     /**
      * 删除图片
+     *
      * @param id
      * @return
      */

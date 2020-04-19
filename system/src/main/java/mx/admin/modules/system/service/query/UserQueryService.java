@@ -42,8 +42,8 @@ public class UserQueryService {
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(UserDTO user, Pageable pageable){
-        Page<User> page = userRepo.findAll(new Spec(user),pageable);
+    public Object queryAll(UserDTO user, Pageable pageable) {
+        Page<User> page = userRepo.findAll(new Spec(user), pageable);
         return PageUtil.toPage(page.map(userMapper::toDto));
     }
 
@@ -51,7 +51,7 @@ public class UserQueryService {
      * 不分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(UserDTO user){
+    public Object queryAll(UserDTO user) {
         return userMapper.toDto(userRepo.findAll(new Spec(user)));
     }
 
@@ -59,7 +59,7 @@ public class UserQueryService {
 
         private UserDTO user;
 
-        public Spec(UserDTO user){
+        public Spec(UserDTO user) {
             this.user = user;
         }
 
@@ -68,33 +68,33 @@ public class UserQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-            if(!ObjectUtils.isEmpty(user.getId())){
+            if (!ObjectUtils.isEmpty(user.getId())) {
                 /**
                  * 相等
                  */
-                list.add(cb.equal(root.get("id").as(Long.class),user.getId()));
+                list.add(cb.equal(root.get("id").as(Long.class), user.getId()));
             }
 
-            if(!ObjectUtils.isEmpty(user.getEnabled())){
+            if (!ObjectUtils.isEmpty(user.getEnabled())) {
                 /**
                  * 相等
                  */
-                list.add(cb.equal(root.get("enabled").as(Boolean.class),user.getEnabled()));
+                list.add(cb.equal(root.get("enabled").as(Boolean.class), user.getEnabled()));
             }
 
 
-            if(!ObjectUtils.isEmpty(user.getUsername())){
+            if (!ObjectUtils.isEmpty(user.getUsername())) {
                 /**
                  * 模糊
                  */
-                list.add(cb.like(root.get("username").as(String.class),"%"+user.getUsername()+"%"));
+                list.add(cb.like(root.get("username").as(String.class), "%" + user.getUsername() + "%"));
             }
 
-            if(!ObjectUtils.isEmpty(user.getEmail())){
+            if (!ObjectUtils.isEmpty(user.getEmail())) {
                 /**
                  * 模糊
                  */
-                list.add(cb.like(root.get("email").as(String.class),"%"+user.getEmail()+"%"));
+                list.add(cb.like(root.get("email").as(String.class), "%" + user.getEmail() + "%"));
             }
 
             Predicate[] p = new Predicate[list.size()];

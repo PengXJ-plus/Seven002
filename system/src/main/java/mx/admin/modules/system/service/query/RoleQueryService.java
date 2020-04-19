@@ -41,8 +41,8 @@ public class RoleQueryService {
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(String name, Pageable pageable){
-        Page<Role> page = roleRepository.findAll(new Spec(name),pageable);
+    public Object queryAll(String name, Pageable pageable) {
+        Page<Role> page = roleRepository.findAll(new Spec(name), pageable);
         return PageUtil.toPage(page.map(roleMapper::toDto));
     }
 
@@ -50,7 +50,7 @@ public class RoleQueryService {
 
         private String name;
 
-        public Spec(String name){
+        public Spec(String name) {
             this.name = name;
         }
 
@@ -59,11 +59,11 @@ public class RoleQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-            if(!ObjectUtils.isEmpty(name)){
+            if (!ObjectUtils.isEmpty(name)) {
                 /**
                  * 模糊
                  */
-                list.add(cb.like(root.get("name").as(String.class),"%"+name+"%"));
+                list.add(cb.like(root.get("name").as(String.class), "%" + name + "%"));
             }
 
             Predicate[] p = new Predicate[list.size()];

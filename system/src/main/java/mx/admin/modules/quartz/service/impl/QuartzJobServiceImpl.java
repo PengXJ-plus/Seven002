@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 /**
@@ -30,14 +31,14 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Override
     public QuartzJob findById(Long id) {
         Optional<QuartzJob> quartzJob = quartzJobRepository.findById(id);
-        ValidationUtil.isNull(quartzJob,"QuartzJob","id",id);
+        ValidationUtil.isNull(quartzJob, "QuartzJob", "id", id);
         return quartzJob.get();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public QuartzJob create(QuartzJob resources) {
-        if (!CronExpression.isValidExpression(resources.getCronExpression())){
+        if (!CronExpression.isValidExpression(resources.getCronExpression())) {
             throw new BadRequestException("cron表达式格式错误");
         }
         resources = quartzJobRepository.save(resources);
@@ -48,10 +49,10 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(QuartzJob resources) {
-        if(resources.getId().equals(1L)){
+        if (resources.getId().equals(1L)) {
             throw new BadRequestException("该任务不可操作");
         }
-        if (!CronExpression.isValidExpression(resources.getCronExpression())){
+        if (!CronExpression.isValidExpression(resources.getCronExpression())) {
             throw new BadRequestException("cron表达式格式错误");
         }
         resources = quartzJobRepository.save(resources);
@@ -60,7 +61,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 
     @Override
     public void updateIsPause(QuartzJob quartzJob) {
-        if(quartzJob.getId().equals(1L)){
+        if (quartzJob.getId().equals(1L)) {
             throw new BadRequestException("该任务不可操作");
         }
         if (quartzJob.getIsPause()) {
@@ -75,7 +76,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 
     @Override
     public void execution(QuartzJob quartzJob) {
-        if(quartzJob.getId().equals(1L)){
+        if (quartzJob.getId().equals(1L)) {
             throw new BadRequestException("该任务不可操作");
         }
         quartzManage.runAJobNow(quartzJob);
@@ -84,7 +85,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(QuartzJob quartzJob) {
-        if(quartzJob.getId().equals(1L)){
+        if (quartzJob.getId().equals(1L)) {
             throw new BadRequestException("该任务不可操作");
         }
         quartzManage.deleteJob(quartzJob);

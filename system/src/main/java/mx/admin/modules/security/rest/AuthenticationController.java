@@ -51,6 +51,7 @@ public class AuthenticationController {
 
     /**
      * 登录授权
+     *
      * @param authUser
      * @return
      */
@@ -58,17 +59,17 @@ public class AuthenticationController {
     @ApiOperation("登陆授权")
     @AnonymousAccess
     @PostMapping(value = "/login")
-    public ResponseEntity login(@Validated @RequestBody AuthorizationUser authUser){
+    public ResponseEntity login(@Validated @RequestBody AuthorizationUser authUser) {
         RSA rsa = new RSA(privateKey, null);
         String password = new String(rsa.decrypt(authUser.getPassword(), KeyType.PrivateKey));
 
         final JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(authUser.getUsername());
         String pw = EncryptUtils.encryptPassword(password);
-        if(!jwtUser.getPassword().equals(EncryptUtils.encryptPassword(pw))){
+        if (!jwtUser.getPassword().equals(EncryptUtils.encryptPassword(pw))) {
             throw new AccountExpiredException("密码错误！");
         }
 
-        if(!jwtUser.isEnabled()){
+        if (!jwtUser.isEnabled()) {
             throw new AccountExpiredException("账号已停用，请联系管理员！");
         }
 
@@ -76,20 +77,20 @@ public class AuthenticationController {
         final String token = jwtTokenUtil.generateToken(jwtUser);
 
         // 返回 token
-        return ResponseEntity.ok(new AuthenticationInfo(token,jwtUser));
+        return ResponseEntity.ok(new AuthenticationInfo(token, jwtUser));
     }
 
     /**
      * 获取用户信息
+     *
      * @return
      */
     @GetMapping(value = "/info")
-    public ResponseEntity getUserInfo(){
+    public ResponseEntity getUserInfo() {
         UserDetails userDetails = SecurityContextHolder.getUserDetails();
-        JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(userDetails.getUsername());
+        JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(userDetails.getUsername());
         return ResponseEntity.ok(jwtUser);
     }
-
 
 
 }

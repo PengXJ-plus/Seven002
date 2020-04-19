@@ -1,12 +1,14 @@
 package mx.admin.domain;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
  * 支付宝配置类
+ *
  * @author jie
  * @date 2018-12-31
  */
@@ -44,7 +46,7 @@ public class AlipayConfig implements Serializable {
      * 签名方式，固定格式
      */
     @Column(name = "sign_type")
-    private String signType="RSA2";
+    private String signType = "RSA2";
 
     /**
      * 支付宝开放安全地址，一般不会变
@@ -55,7 +57,7 @@ public class AlipayConfig implements Serializable {
     /**
      * 编码，固定格式
      */
-    private String charset= "utf-8";
+    private String charset = "utf-8";
 
     /**
      * 异步通知地址
@@ -74,7 +76,7 @@ public class AlipayConfig implements Serializable {
     /**
      * 类型，固定格式
      */
-    private String format="JSON";
+    private String format = "JSON";
 
     /**
      * 商户号
